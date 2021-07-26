@@ -20,6 +20,7 @@ const About = () => {
                     Hey it's me, Wayne! <br/>
                     Thanks for checking out my web app!<br/>
                     This app was made to track poker sessions, tabulate your profits and losses easily!<br/>
+                    Let me know if there are any bugs @fattywayne<br/>
                     Hit like if you enjoyed using it~ :D
                 </p>
                 <button onClick={addOneLike} className="btn btn-outline-secondary">Likes: { likes.likes }</button>

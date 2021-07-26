@@ -44,7 +44,7 @@ const ViewSession = () => {
                                         {x.playerChips}
                                     </td>
                                     <td>
-                                        {x.playerProfit !== Number(0) ? (x.playerProfit < 0 ? "-$" + Math.abs(x.playerProfit) : "$" + x.playerProfit) : "-"}
+                                        {x.playerProfit !== Number(0) ? (x.playerProfit < 0 ? "-$" + Math.abs(Number(x.playerProfit)).toFixed(2) : "$" + Number(x.playerProfit).toFixed(2)) : "-"}
                                     </td>
                                 </tr>
                             );
