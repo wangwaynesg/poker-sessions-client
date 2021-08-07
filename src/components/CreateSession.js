@@ -134,8 +134,8 @@ const CreateSession = () => {
                             required 
                             className="form-control" 
                             value={sessionData.buyInAmount} 
+                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                             onChange={(e) => {
-                                // setSessionData({ ...sessionData, buyInAmount:e.target.value });
                                 handleBuyInAmountChange(e);
                             }}
                         />
@@ -147,8 +147,8 @@ const CreateSession = () => {
                             required 
                             className="form-control" 
                             value={sessionData.chipsPerBuyIn} 
+                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                             onChange={(e) => {
-                                // setSessionData({ ...sessionData, chipsPerBuyIn:e.target.value });
                                 handleChipsPerBuyInChange(e);
                             }}
                         />
@@ -172,13 +172,28 @@ const CreateSession = () => {
                                 return (
                                     <tr key={i}>
                                         <td>
-                                            <input className="form-control" name="playerName" value={x.playerName} onChange={(e) => handlePlayerInputChange(e, i)}/>
+                                            <input 
+                                            className="form-control" 
+                                            name="playerName" 
+                                            value={x.playerName} 
+                                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                                            onChange={(e) => handlePlayerInputChange(e, i)}/>
                                         </td>
                                         <td>
-                                            <input className="form-control" name="playerBuyIns" value={x.playerBuyIns} onChange={(e) => handlePlayerInputChange(e, i)}/>
+                                            <input 
+                                            className="form-control" 
+                                            name="playerBuyIns" 
+                                            value={x.playerBuyIns} 
+                                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                                            onChange={(e) => handlePlayerInputChange(e, i)}/>
                                         </td>
                                         <td>
-                                            <input className="form-control" name="playerChips" value={x.playerChips} onChange={(e) => handlePlayerInputChange(e, i)}/>
+                                            <input 
+                                            className="form-control" 
+                                            name="playerChips" 
+                                            value={x.playerChips} 
+                                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                                            onChange={(e) => handlePlayerInputChange(e, i)}/>
                                         </td>
                                         <td>
                                             <span className="form-control" style={{whiteSpace:"nowrap", overflow:"hidden"}}>
