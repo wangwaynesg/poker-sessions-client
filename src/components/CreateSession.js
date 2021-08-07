@@ -22,9 +22,9 @@ const CreateSession = () => {
     const handlePlayerInputChange = (e, index) => {
         const { name, value } = e.target;
         const list = [...playerList];
-        playerList[index][name] = value;
+        list[index][name] = value;
 
-        playerList[index]["playerProfit"] = Number(sessionData.buyInAmount * (playerList[index]["playerChips"] / sessionData.chipsPerBuyIn - playerList[index]["playerBuyIns"])).toFixed(2);
+        list[index]["playerProfit"] = Number(sessionData.buyInAmount * (list[index]["playerChips"] / sessionData.chipsPerBuyIn - list[index]["playerBuyIns"])).toFixed(2);
         
         setPlayerList(list);
         setSessionData({ ...sessionData, players:list });
@@ -33,6 +33,34 @@ const CreateSession = () => {
         list.forEach(x => {
             tempProfit = Number(tempProfit) + Number(x.playerProfit);
         })
+        setNetProfit(tempProfit.toFixed(2));
+    };
+
+    const handleBuyInAmountChange = (e) => {
+        const list = [...playerList];
+
+        var tempProfit = Number(0);
+        for (let index = 0; index < list.length; index++) {
+            list[index]["playerProfit"] = Number(e.target.value * (list[index]["playerChips"] / sessionData.chipsPerBuyIn - list[index]["playerBuyIns"])).toFixed(2)
+            tempProfit = Number(tempProfit) + Number(list[index]["playerProfit"]);
+        }
+
+        setPlayerList(list);
+        setSessionData({ ...sessionData, players:list, buyInAmount:e.target.value });
+        setNetProfit(tempProfit.toFixed(2));
+    };
+
+    const handleChipsPerBuyInChange = (e) => {
+        const list = [...playerList];
+
+        var tempProfit = Number(0);
+        for (let index = 0; index < list.length; index++) {
+            list[index]["playerProfit"] = Number(sessionData.buyInAmount * (list[index]["playerChips"] / e.target.value - list[index]["playerBuyIns"])).toFixed(2);
+            tempProfit = Number(tempProfit) + Number(list[index]["playerProfit"]);
+        }
+
+        setPlayerList(list);
+        setSessionData({ ...sessionData, players:list, chipsPerBuyIn:e.target.value });
         setNetProfit(tempProfit.toFixed(2));
     };
 
@@ -82,7 +110,7 @@ const CreateSession = () => {
 
     return (
         <div> 
-            <form onSubmit={onSubmit}>
+            <form onSubmit={(e) => onSubmit(e)}>
                 <div style={{padding: "1%"}}>
                     <h3>New session</h3>
 
@@ -93,7 +121,10 @@ const CreateSession = () => {
                             className="form-control" 
                             placeholder="Boon Lay with the boys"
                             value={sessionData.sessionName} 
-                            onChange={(e) => setSessionData({ ...sessionData, sessionName: e.target.value })}
+                            onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                            onChange={(e) => {
+                                setSessionData({ ...sessionData, sessionName: e.target.value });
+                            }}
                         />
                     </div>
 
@@ -103,7 +134,10 @@ const CreateSession = () => {
                             required 
                             className="form-control" 
                             value={sessionData.buyInAmount} 
-                            onChange={(e) => setSessionData({ ...sessionData, buyInAmount:e.target.value })}
+                            onChange={(e) => {
+                                // setSessionData({ ...sessionData, buyInAmount:e.target.value });
+                                handleBuyInAmountChange(e);
+                            }}
                         />
                     </div>
 
@@ -113,7 +147,10 @@ const CreateSession = () => {
                             required 
                             className="form-control" 
                             value={sessionData.chipsPerBuyIn} 
-                            onChange={(e) => setSessionData({ ...sessionData, chipsPerBuyIn:e.target.value })}
+                            onChange={(e) => {
+                                // setSessionData({ ...sessionData, chipsPerBuyIn:e.target.value });
+                                handleChipsPerBuyInChange(e);
+                            }}
                         />
                     </div>
                 </div>
